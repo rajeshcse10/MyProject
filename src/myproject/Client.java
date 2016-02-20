@@ -6,6 +6,10 @@
 
 package myproject;
 
+import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author Rajesh Karmaker
@@ -21,9 +25,9 @@ public class Client extends javax.swing.JFrame {
         this.name = name;
         this.Ip = Ip;
         this.port = port;
-        initComponents();
+        initComponents();   
         MessageField.requestFocusInWindow();
-        console("Successfully Connected !!!");
+        console("Successfully Connected !!!"+"\n");
     }
 
     /**
@@ -52,8 +56,18 @@ public class Client extends javax.swing.JFrame {
                 MessageFieldActionPerformed(evt);
             }
         });
+        MessageField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MessageFieldKeyPressed(evt);
+            }
+        });
 
         SendButton.setText("Send");
+        SendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SendButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,13 +75,13 @@ public class Client extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(MessageField, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,13 +100,33 @@ public class Client extends javax.swing.JFrame {
 
     private void MessageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MessageFieldActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_MessageFieldActionPerformed
+
+    private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
+        // TODO add your handling code here:
+        send(MessageField.getText()+"\n");
+    }//GEN-LAST:event_SendButtonActionPerformed
+
+    private void MessageFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MessageFieldKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            send(MessageField.getText()+"\n");
+            
+        }
+    }//GEN-LAST:event_MessageFieldKeyPressed
 
     /**
      * @param args the command line arguments
      */
+    private void send(String message){
+        
+        TextHistoryArea.append(message);
+        MessageField.setText("");
+    }
     public void console(String message){
         TextHistoryArea.append(message);
+        MessageField.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField MessageField;
