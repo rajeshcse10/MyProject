@@ -184,6 +184,6 @@ public class Login extends javax.swing.JFrame {
     private void loginAction(String name, String IP, int port) {
         this.dispose();  //It disables the login window
         //System.out.println(name +", "+IP+", "+port);
-        new Client(name, IP, port).setVisible(true);
+        new ClientWindow(name, IP, port).setVisible(true);
     }
 }
